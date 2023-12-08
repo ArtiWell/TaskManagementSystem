@@ -1,0 +1,24 @@
+spring:
+  liquibase:
+    defaultSchema: ${schema:TMS}
+    change-log: classpath:db.migration/master.yaml
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    password:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: ${schema:TMS}
+        hbm2ddl:
+          auto: validate
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 5
+  mvc:
+    servlet:
+      path: /api/v1

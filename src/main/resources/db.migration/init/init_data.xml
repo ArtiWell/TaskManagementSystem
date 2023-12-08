@@ -1,0 +1,59 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="4" author="Artem">
+        <preConditions>
+            <tableExists tableName="users"/>
+        </preConditions>
+        <sql>
+            INSERT INTO users ("email",password)
+            VALUES
+                ('petya@mail.com', '$2a$10$7e8g6uckc8yPe3GQaD26JuKGk0qfuQAm1Bb5Agrd2h8ZenPfMwhIq'),
+                ('masha@mail.com', '$2a$10$7e8g6uckc8yPe3GQaD26JuKGk0qfuQAm1Bb5Agrd2h8ZenPfMwhIq'),
+                ('sasha@mail.com', '$2a$10$7e8g6uckc8yPe3GQaD26JuKGk0qfuQAm1Bb5Agrd2h8ZenPfMwhIq')
+
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="5" author="Artem">
+        <preConditions>
+            <tableExists tableName="tasks"/>
+        </preConditions>
+        <sql>
+            INSERT INTO tasks ("description",owner_email, performer_email ,status)
+            VALUES
+                ('Решить матан', 'sasha@mail.com', 'petya@mail.com', 'IN_PROGRESS'),
+                ('Решить физику', 'petya@mail.com', 'masha@mail.com', 'IN_PROGRESS'),
+                ('Решить химию', 'petya@mail.com', 'sasha@mail.com', 'IN_PROGRESS'),
+                ('Решить гидравлику', 'petya@mail.com', 'masha@mail.com', 'IN_PROGRESS')
+
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="6" author="Artem">
+        <preConditions>
+            <tableExists tableName="comments"/>
+        </preConditions>
+        <sql>
+            INSERT INTO comments ("comment", task_id)
+            VALUES ('решить к 4 числу', 1),
+                   ('решить с первого раза', 1),
+                   ('подсмотреть у пети', 4),
+                   ('найти в интернете', 3),
+                   ('поговорить с преподом', 3),
+                   ('можно забить', 2)
+        </sql>
+    </changeSet>
+
+
+
+
+</databaseChangeLog>

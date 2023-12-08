@@ -1,0 +1,97 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet author="Artem" id="1">
+        <preConditions>
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" uniqueConstraintName="users_pk"/>
+            </column>
+            <column name="email" type="varchar(50)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="email_uq"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="Artem" id="2">
+        <preConditions>
+            <not>
+                <tableExists tableName="tasks"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="tasks">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" uniqueConstraintName="tasks_pk"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_email" type="varchar(50)">
+                <constraints nullable="false" referencedTableName="users" referencedColumnNames="email"
+                             foreignKeyName="task_user.owner_email"/>
+            </column>
+            <column name="performer_email" type="varchar(50)">
+                <constraints nullable="false" referencedTableName="users" referencedColumnNames="email"
+                             foreignKeyName="task_user.email"/>
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="tasks"/>
+        </rollback>
+    </changeSet>
+
+
+    <changeSet author="Artem" id="3">
+        <preConditions>
+            <not>
+                <tableExists tableName="comments"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="comments">
+            <column name="id" type="bigserial">
+                <constraints nullable="false" primaryKey="true" uniqueConstraintName="comments_pk"/>
+            </column>
+            <column name="comment" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="task_id" type="bigserial">
+                <constraints nullable="false" referencedTableName="tasks" referencedColumnNames="id"
+                             foreignKeyName="comments_task.id"/>
+            </column>
+
+        </createTable>
+        <rollback>
+            <dropTable tableName="comments"/>
+        </rollback>
+    </changeSet>
+
+
+
+
+
+
+</databaseChangeLog>
