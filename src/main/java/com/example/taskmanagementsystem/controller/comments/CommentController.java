@@ -1,10 +1,8 @@
 package com.example.taskmanagementsystem.controller.comments;
 
-import com.example.taskmanagementsystem.controller.tasks.TaskDTO;
 import com.example.taskmanagementsystem.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

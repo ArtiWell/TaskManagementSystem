@@ -27,9 +27,10 @@ public class TaskService {
     private final TaskRepository taskRepository;
 
     public void addTask(TaskDTO taskDTO) {
+
         TaskEntity task = new TaskEntity();
         task.setDescription(taskDTO.description());
-        task.setOwnerEmail(taskDTO.ownerEmail());
+        task.setOwnerEmail(userCredentials.getEmail());
         task.setPerformerEmail(taskDTO.performerEmail());
         taskRepository.save(task);
     }
@@ -57,7 +58,7 @@ public class TaskService {
 
 
     public ResponseTask patchTask(Long id, TaskDTO taskDTO) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        TaskEntity task = taskRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
 
 
         if (userCredentials.getEmail().equals(task.getOwnerEmail())) {
@@ -82,7 +83,7 @@ public class TaskService {
     }
 
     public ResponseTask changeStatus(Long id, ChangeTaskDTO taskDTO) {
-        var task = taskRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        TaskEntity task = taskRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         if (taskDTO.status() != null) {
             if (userCredentials.getEmail().equals(task.getOwnerEmail()) ||
                     userCredentials.getEmail().equals(task.getPerformerEmail())) {
