@@ -16,5 +16,3 @@ user - ```postgres```
 
  [![alt text]( https://media.discordapp.net/attachments/1062136517654499379/1182734492637597746/DB_TMS.png)]
 
-
-## Описание
